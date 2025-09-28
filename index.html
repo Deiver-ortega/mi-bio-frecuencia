@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Una Sorpresa con Bio-Frecuencia!</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div> 
+    
+    <div class="container">
+        <h1 class="main-title">🌟 Mi Código de Corazón para Ti 🌟</h1>
+        <p class="subtitle">Descifremos juntos la Bio-Frecuencia de nuestro amor. </p>
+        
+        <div class="input-area">
+            <label for="clave">¿Cuál es la Frecuencia Musical que nos une? (Pista: Yan Block)</label>
+            <input type="text" id="clave" placeholder="Ej: Yogurcito" onkeypress="if(event.keyCode==13) iniciarAnalisis()">
+            <button onclick="iniciarAnalisis()">✨ Descubrir ✨</button>
+        </div>
+        
+        <div class="output-area">
+            <pre id="consola-salida"></pre>
+        </div>
+    </div>
+    
+    <div id="video-area" style="display: none;">
+        <video id="video-player" controls style="width: 100%;" preload="auto">
+            <source src="mi_frecuencia.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+        </video>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
