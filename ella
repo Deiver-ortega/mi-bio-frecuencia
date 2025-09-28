@@ -1,0 +1,356 @@
+// Archivo: script.js
+
+// 🎵 PARTE 1: CONFIGURACIÓN ROMÁNTICA
+// ----------------------------------------------------
+// ¡CLAVE FINAL! La chica debe ingresar exactamente "yogurcito"
+const CLAVE_CORRECTA = "yogurcito"; 
+
+// Mensaje de amor final (Biología + Ingeniería)
+// ¡Ajusta este mensaje para que sea aún más romántico y personal!
+const MENSAJE_FINAL = "Mi corazón encontró su frecuencia perfecta en ti. ¡Te Amo!";
+// ----------------------------------------------------
+
+
+// Referencia al área donde se muestra el código
+const consola = document.getElementById('consola-salida');
+let ejecutando = false;
+
+// Array de líneas de simulación con mensajes adaptados al color verde neón
+const lineasSimulacion = [
+    "---------------------------------------------------",
+    ">> INICIANDO ANÁLISIS DE FRECUENCIA CARDÍACA...",
+    ">> Estableciendo conexión con el ADN sentimental...",
+    ">> [ERROR]: Acceso restringido. Se requiere CLAVE MUSICAL.",
+    ">> Frecuencia Clave recibida: " + CLAVE_CORRECTA.toUpperCase(),
+    ">> Procesando información genética y armónica...",
+    ">> [OK]: ¡Sincronización de amor al 100%!",
+    "---------------------------------------------------",
+    ">> DESBLOQUEANDO EL MENSAJE MÁS PURO DE MI CORAZÓN...",
+];
+
+
+// Función para escribir texto letra por letra (typing effect)
+function escribirLinea(linea, index, callback) {
+    if (index < linea.length) {
+        consola.textContent += linea[index];
+        setTimeout(() => escribirLinea(linea, index + 1, callback), 20); // 20ms por letra
+    } else {
+        consola.textContent += '\n'; // Salto de línea
+        if (callback) callback();
+    }
+}
+
+// Función que maneja la simulación línea por línea
+function simularAnalisis(indiceLinea) {
+    if (indiceLinea < lineasSimulacion.length) {
+        escribirLinea(lineasSimulacion[indiceLinea], 0, () => {
+            simularAnalisis(indiceLinea + 1);
+        });
+    } else {
+        // Cuando toda la simulación termina, muestra el mensaje final
+        mostrarMensajeFinal();
+    }
+}
+
+// Muestra el mensaje de amor y AHORA inicia el video local
+function mostrarMensajeFinal() {
+    consola.innerHTML += `<span class="mensaje-final">${MENSAJE_FINAL}</span>`;
+    ejecutando = false;
+
+    // 🎥 CÓDIGO PARA REPRODUCIR EL VIDEO LOCAL:
+    const videoArea = document.getElementById('video-area');
+    const videoPlayer = document.getElementById('video-player');
+
+    // Muestra el contenedor del video
+    videoArea.style.display = 'block';
+
+    // Inicia la reproducción
+    setTimeout(() => {
+        videoPlayer.currentTime = 0; // Asegura que el video empiece desde el inicio
+        
+        videoPlayer.play().catch(error => {
+            console.error("La reproducción automática falló. Algunos navegadores pueden bloquear el autoplay. Intenta hacer clic en el botón de Play del video.");
+            // Si falla el autoplay, el usuario puede darle clic a la barra de controles
+        });
+
+    }, 1000); 
+    // ------------------------------------
+}
+
+
+// Función principal llamada por el botón
+function iniciarAnalisis() {
+    if (ejecutando) return; // Evita doble clic
+
+    const campoClave = document.getElementById('clave');
+    // Normaliza la entrada (todo minúsculas, sin espacios)
+    const intento = campoClave.value.toLowerCase().trim();
+
+    if (intento === CLAVE_CORRECTA) {
+        ejecutando = true;
+        consola.textContent = ''; // Limpia la consola
+        simularAnalisis(0); // Inicia la simulación
+    } else {
+        // Mensaje de error ajustado para el estilo verde neón
+        consola.textContent = `[ERROR] Frecuencia "${intento.toUpperCase()}" no encontrada. Por favor, ¡piensa en NUESTRA canción!`;
+        ejecutando = false;
+        campoClave.value = ''; // Limpia el campo
+    }
+}
+/* Importar fuentes bonitas de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;700&display=swap');
+
+body {
+    background-color: #fce4ec; /* Rosa muy claro, casi blanco */
+    font-family: 'Montserrat', sans-serif; /* Fuente principal moderna */
+    color: #4a4a4a; /* Gris suave para el texto general */
+    
+    /* CORRECCIÓN CLAVE: Usamos flexbox para centrar todo */
+    display: flex;
+    /* Apilamos los contenedores verticalmente (uno debajo del otro) */
+    flex-direction: column; 
+    /* Centramos todo el contenido horizontalmente (la clave para que no se vea "mochado") */
+    align-items: center; 
+    /* Centramos todo el contenido verticalmente (para que esté en el medio de la pantalla) */
+    justify-content: center;
+    
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden; /* Evita el scroll horizontal si algo se desborda */
+}
+
+/* Fondo con patrón de corazones sutiles */
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%23f8bbd0" d="M10 3.2C10 3.2 11.2 1 14 1S19 3.8 19 6.5C19 9.2 14 14 10 17.5C6 14 1 9.2 1 6.5S5 1 8 1S10 3.2 10 3.2Z"/></svg>');
+    background-size: 30px 30px; 
+    opacity: 0.3;
+    z-index: -1; 
+    animation: backgroundMove 60s linear infinite;
+}
+
+@keyframes backgroundMove {
+    from { background-position: 0 0; }
+    to { background-position: 600px 600px; }
+}
+
+
+.container {
+    width: 90%;
+    max-width: 650px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    /* Centrado horizontal implícito gracias al body, pero este margin ayuda */
+    margin: 20px 0; 
+}
+
+.main-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8em;
+    color: #e91e63;
+    margin-bottom: 10px;
+    animation: fadeIn 2s ease-out;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    color: #880e4f;
+    margin-bottom: 30px;
+}
+
+/* Área de entrada de datos */
+.input-area {
+    margin: 30px 0;
+}
+
+label {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #d81b60;
+    font-weight: bold;
+}
+
+#clave {
+    padding: 12px 15px;
+    border: 2px solid #f06292;
+    border-radius: 25px;
+    background-color: #fff8f8;
+    color: #4a4a4a;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    /* Ajuste para que quepa el botón en línea sin desbordar */
+    width: calc(100% - 180px); 
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+#clave:focus {
+    outline: none;
+    border-color: #e91e63;
+    box-shadow: 0 0 8px rgba(233, 30, 99, 0.4);
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #e91e63;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #d81b60;
+    transform: translateY(-2px);
+}
+
+/* Área de salida (consola) con diseño de terminal hacker */
+.output-area {
+    background-color: #0d0d0d;
+    border: 2px solid #00ff7f;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 150px;
+    max-height: 250px;
+    overflow-y: auto;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-top: 25px;
+}
+
+#consola-salida {
+    margin: 0;
+    white-space: pre-wrap;
+    font-size: 1em;
+    color: #00ff7f;
+}
+
+/* Estilo para el mensaje romántico final */
+.mensaje-final {
+    display: block;
+    margin-top: 25px;
+    font-size: 2.2em;
+    color: #e91e63;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    animation: fadeInScale 2s ease-out forwards;
+    text-shadow: 2px 2px 8px rgba(233, 30, 99, 0.4);
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Estilos para el reproductor de video para que no "choque" */
+#video-area {
+    width: 90%;
+    max-width: 650px;
+    /* El margen auto es CLAVE para centrar esto horizontalmente */
+    margin: 20px auto 30px auto; 
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden; 
+    padding: 10px;
+    box-sizing: border-box; 
+}
+
+#video-player {
+    border-radius: 10px;
+    display: block;
+}
+
+/* Animaciones adicionales */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Media Queries para ajustar en móviles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+    .main-title {
+        font-size: 2.2em;
+    }
+    .subtitle {
+        font-size: 0.9em;
+    }
+    label {
+        font-size: 1em;
+    }
+    #clave {
+        width: calc(100% - 20px); 
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+    button {
+        width: calc(100% - 20px); 
+    }
+    .mensaje-final {
+        font-size: 1.8em;
+    }
+    .container, #video-area {
+        padding: 20px;
+    }
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Una Sorpresa con Bio-Frecuencia!</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div> 
+    
+    <div class="container">
+        <h1 class="main-title">🌟 Mi Código de Corazón para Ti 🌟</h1>
+        <p class="subtitle">Descifremos juntos la Bio-Frecuencia de nuestro amor. </p>
+        
+        <div class="input-area">
+            <label for="clave">¿Cuál es la Frecuencia Musical que nos une? (Pista: Yan Block)</label>
+            <input type="text" id="clave" placeholder="Ej: Yogurcito" onkeypress="if(event.keyCode==13) iniciarAnalisis()">
+            <button onclick="iniciarAnalisis()">✨ Descubrir ✨</button>
+        </div>
+        
+        <div class="output-area">
+            <pre id="consola-salida"></pre>
+        </div>
+    </div>
+    
+    <div id="video-area" style="display: none;">
+        <video id="video-player" controls style="width: 100%;" preload="auto">
+            <source src="mi_frecuencia.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+        </video>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
