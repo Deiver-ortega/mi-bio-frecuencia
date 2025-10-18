@@ -3,7 +3,7 @@
 // 🎵 PARTE 1: CONFIGURACIÓN ROMÁNTICA
 // ----------------------------------------------------
 // ¡CLAVE FINAL! La chica debe ingresar exactamente "yogurcito"
-const CLAVE_CORRECTA = "yogurcito"; 
+const CLAVE_CORRECTA = "Deja el orgullo y aceptame"; 
 
 // Mensaje de amor final (Biología + Ingeniería)
 // ¡Ajusta este mensaje para que sea aún más romántico y personal!
@@ -96,4 +96,5 @@ function iniciarAnalisis() {
         ejecutando = false;
         campoClave.value = ''; // Limpia el campo
     }
+
 }
